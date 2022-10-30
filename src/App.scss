@@ -8,6 +8,8 @@ $bottom-background: #000066;
 
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Permanent+Marker&display=swap');
 
+
+
 body {
   background-color: $top-background;
   font-family: "JetBrains Mono", monospace;
@@ -66,7 +68,7 @@ p {
 
 .titlecard{
   color: $bottom-background;
-  font-size: 75px;
+  font-size: 60px;
   font-family: "JetBrains Mono", monospace;
   margin: 1em;
   text-align: center;
