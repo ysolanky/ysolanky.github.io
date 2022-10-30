@@ -5,4 +5,4 @@
 
 Run locally: npm start
 
-
+Deploy: npm run deploy
