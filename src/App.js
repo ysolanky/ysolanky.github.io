@@ -1,7 +1,7 @@
 import './App.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faLinkedin, faGithubSquare} from '@fortawesome/free-brands-svg-icons'
-import {faFileAlt, faMapPin, faEnvelope} from '@fortawesome/free-solid-svg-icons'
+import {faLinkedin, faGithub} from '@fortawesome/free-brands-svg-icons'
+import {faEnvelope, faFilePdf,faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
 
 
@@ -36,27 +36,28 @@ class AppBase extends React.Component {
                     <div>
                         <ul className="c-social">
                             <li>
-                                <a target="_blank"  rel="noreferrer" href="mailto:ysolanky@iu.edu" title="Email me">
+                                <a target="_blank"  rel="noreferrer" href="mailto:ysolanky@iu.edu" title="Email">
                                     <FontAwesomeIcon icon={faEnvelope} color={iconColor}/>
                                 </a>
                             </li>
                             <li>
-                                <a target="_blank"  rel="noreferrer" href="https://www.linkedin.com/in/ysolanky"
-                                   title="Add me on LinkedIn">
-                                    <FontAwesomeIcon icon={faLinkedin} color={iconColor}/>
+                                <a target="_blank"  rel="noreferrer" href="resume.pdf" title="Resume">
+                                    <FontAwesomeIcon icon={faFilePdf} color={iconColor}/>
                                 </a>
                             </li>
+
                             <li>
                                 &nbsp; Yash &nbsp;
                             </li>
                             <li>
-                                <a target="_blank"  rel="noreferrer" href="resume.pdf" title="Check out my resume">
-                                    <FontAwesomeIcon icon={faFileAlt} color={iconColor}/>
+                                <a target="_blank"  rel="noreferrer" href="https://www.linkedin.com/in/ysolanky"
+                                   title="LinkedIn">
+                                    <FontAwesomeIcon icon={faLinkedin} color={iconColor}/>
                                 </a>
                             </li>
                             <li>
-                                <a target="_blank"  rel="noreferrer" href="https://github.com/ysolanky" title="Check out my projects">
-                                    <FontAwesomeIcon icon={faGithubSquare} color={iconColor}/>
+                                <a target="_blank"  rel="noreferrer" href="https://github.com/ysolanky" title="Github">
+                                    <FontAwesomeIcon icon={faGithub} color={iconColor}/>
                                 </a>
                             </li>
 
@@ -69,29 +70,29 @@ class AppBase extends React.Component {
                 </div>
 
                 <div className="map-pin">
-                    <FontAwesomeIcon icon={faMapPin} color={iconColor}/>
+                    <FontAwesomeIcon icon={faLocationDot} color={iconColor}/>
                     &nbsp; Bloomington, Indiana
                 </div>
                 <div>
                     <ul className="c-social">
                         <li>
-                            <a target="_blank"  rel="noreferrer" href="mailto:ysolanky@iu.edu" title="Email me">
+                            <a target="_blank"  rel="noreferrer" href="mailto:ysolanky@iu.edu" title="Email">
                                 <FontAwesomeIcon icon={faEnvelope} color={iconColor}/>
                             </a>
                         </li>
                         <li>
-                            <a target="_blank"  rel="noreferrer" href="https://www.linkedin.com/in/ysolanky" title="Add me on LinkedIn">
+                            <a target="_blank"  rel="noreferrer" href="resume.pdf" title="Resume">
+                                <FontAwesomeIcon icon={faFilePdf} color={iconColor}/>
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank"  rel="noreferrer" href="https://www.linkedin.com/in/ysolanky" title="LinkedIn">
                                 <FontAwesomeIcon icon={faLinkedin} color={iconColor}/>
                             </a>
                         </li>
                         <li>
-                            <a target="_blank"  rel="noreferrer" href="resume.pdf" title="Check out my resume">
-                                <FontAwesomeIcon icon={faFileAlt} color={iconColor}/>
-                            </a>
-                        </li>
-                        <li>
-                            <a target="_blank"  rel="noreferrer" href="https://github.com/ysolanky" title="Check out my projects">
-                                <FontAwesomeIcon icon={faGithubSquare} color={iconColor}/>
+                            <a target="_blank"  rel="noreferrer" href="https://github.com/ysolanky" title="Github">
+                                <FontAwesomeIcon icon={faGithub} color={iconColor}/>
                             </a>
                         </li>
                     </ul>
