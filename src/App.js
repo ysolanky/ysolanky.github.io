@@ -100,7 +100,7 @@ class AppBase extends React.Component {
                     </ul>
                 </div>
                 <div className="about-me">
-                    Data Science Graduate Student at Indiana University
+                    Senior Software Engineer at <a target="_blank"  rel="noreferrer" href="https://www.phidata.com/">Phidata</a> <br/>
                 </div>
                 </body>
                 <div id="top-of-site-pixel-anchor"></div>
