@@ -16,6 +16,7 @@ body {
   font-family: "JetBrains Mono", monospace;
 }
 
+
 span.center {
   display:table;
   margin:0 auto;
@@ -39,6 +40,7 @@ ul.c-social {
 }
 
 .map-pin {
+  color: $bottom-background;
   text-align: center !important;
   font-size: 1rem;
 }
@@ -89,7 +91,7 @@ header {
   padding: 1rem;
   color: $bottom-background;
   text-align: center;
-  font-family: "Permanent Marker", sans-serif;
+  font-family: CustomFont;
 
 
   body.header-not-at-top & {

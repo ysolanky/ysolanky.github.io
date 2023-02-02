@@ -25,11 +25,13 @@ class AppBase extends React.Component {
             });
             observer.observe(document.querySelector("#top-of-site-pixel-anchor"));
         }
+        
     }
+
 
     render() {
         let iconColor = "#000066";
-
+        
         return (
             <div>
                 <header id="header">
