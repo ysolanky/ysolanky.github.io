@@ -38,7 +38,7 @@ class AppBase extends React.Component {
                     <div>
                         <ul className="c-social">
                             <li>
-                                <a target="_blank"  rel="noreferrer" href="mailto:ysolanky@iu.edu" title="Email">
+                                <a target="_blank"  rel="noreferrer" href="mailto:yashpratapsolanky@gmail.com" title="Email">
                                     <FontAwesomeIcon icon={faEnvelope} color={iconColor}/>
                                 </a>
                             </li>
