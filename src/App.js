@@ -1,6 +1,10 @@
 import "./App.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
+import {
+  faLinkedin,
+  faGithub,
+  faXTwitter,
+} from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState } from "react";
 
@@ -25,6 +29,55 @@ const FadeIn = ({ children, delay = 0 }) => {
       }}
     >
       {children}
+    </div>
+  );
+};
+
+// Create a new component for the switching text animation
+const TextSwitcher = () => {
+  const [index, setIndex] = useState(0);
+  const phrases = [
+    <>
+      Senior Software Engineer at{" "}
+      <a
+        target="_blank"
+        rel="noreferrer"
+        href="https://www.agno.com/"
+        aria-label="Agno company website"
+      >
+        Agno
+      </a>
+    </>,
+    <>
+      Building Agents at{" "}
+      <a
+        target="_blank"
+        rel="noreferrer"
+        href="https://www.agno.com/"
+        aria-label="Agno company website"
+      >
+        Agno
+      </a>
+    </>,
+  ];
+
+  useEffect(() => {
+    // Switch between the two phrases every 4 seconds
+    const timer = setInterval(() => {
+      setIndex((prevIndex) => (prevIndex + 1) % phrases.length);
+    }, 4000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="text-switcher">
+      <div className={`text-item ${index === 0 ? "visible" : "hidden"}`}>
+        {phrases[0]}
+      </div>
+      <div className={`text-item ${index === 1 ? "visible" : "hidden"}`}>
+        {phrases[1]}
+      </div>
     </div>
   );
 };
@@ -110,6 +163,18 @@ const SocialLinks = ({ iconColor }) => (
       <a
         target="_blank"
         rel="noreferrer"
+        href="https://twitter.com/yashpratap7"
+        title="Twitter"
+        aria-label="Twitter Profile"
+        className="icon-link"
+      >
+        <FontAwesomeIcon icon={faXTwitter} color={iconColor} />
+      </a>
+    </li>
+    <li>
+      <a
+        target="_blank"
+        rel="noreferrer"
         href="https://www.linkedin.com/in/ysolanky"
         title="LinkedIn"
         aria-label="LinkedIn Profile"
@@ -137,39 +202,126 @@ const SocialLinks = ({ iconColor }) => (
 const AppBase = () => {
   const iconColor = "#000066";
 
-  // Add cursor blinking animation via CSS
+  // Add consolidated animation and styling via CSS
   useEffect(() => {
     const style = document.createElement("style");
     style.innerHTML = `
-      @keyframes blink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0; }
-      }
-      @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-        40% {transform: translateY(-5px);}
-        60% {transform: translateY(-3px);}
-      }
-      @keyframes pulse {
-        0% {transform: scale(1);}
-        50% {transform: scale(1.2);}
-        100% {transform: scale(1);}
-      }
-      .bounce {
-        animation: bounce 0.8s ease infinite;
-      }
-      .pulse {
-        animation: pulse 1.5s ease infinite;
-      }
-      .map-pin-animated {
-        display: inline-flex;
-        align-items: center;
-      }
-      .map-pin-animated:hover svg {
-        animation: bounce 0.8s ease infinite;
-      }
-      /* Rest of your styles... */
-    `;
+    /* Animation keyframes */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-5px); }
+      60% { transform: translateY(-3px); }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Animation classes */
+    .bounce {
+      animation: bounce 0.8s ease infinite;
+    }
+    
+    .pulse {
+      animation: pulse 1.5s ease infinite;
+    }
+    
+    .cursor {
+      animation: blink 1s infinite;
+    }
+    
+    /* Layout & Components */
+    .map-pin-animated {
+      display: inline-flex;
+      align-items: center;
+    }
+    
+    .map-pin-animated:hover svg {
+      animation: bounce 0.8s ease infinite;
+    }
+    
+    .icon-link {
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+    
+    .icon-link:hover {
+      transform: scale(1.1);
+    }
+    
+    .c-social {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      padding: 0;
+      justify-content: center;
+    }
+    
+    .c-social li {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 5px;
+    }
+    
+    .social-links-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    
+    /* Text switcher styles */
+    .text-switcher {
+      position: relative;
+      height: 1.4em;
+      overflow: hidden;
+    }
+    
+    .text-item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .text-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .text-item.hidden {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    
+    /* Update spacing styles */
+    .profile-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem; /* Reduced from 0.3rem */
+    }
+    
+    .map-pin {
+      margin-top: -0.8rem; /* Increased negative margin from -0.6rem */
+    }
+    
+    .social-links-container {
+      margin-top: -0.8rem; /* Increased negative margin from -0.6rem */
+    }
+    
+    .about-me {
+      margin-top: -0.8rem; /* Increased negative margin from -0.6rem */
+    }
+  `;
     document.head.appendChild(style);
 
     return () => {
@@ -235,6 +387,18 @@ const AppBase = () => {
               <a
                 target="_blank"
                 rel="noreferrer"
+                href="https://twitter.com/yashpratap7"
+                title="Twitter"
+                aria-label="Twitter Profile"
+                className="icon-link"
+              >
+                <FontAwesomeIcon icon={faXTwitter} color={iconColor} />
+              </a>
+            </li>
+            <li>
+              <a
+                target="_blank"
+                rel="noreferrer"
                 href="https://www.linkedin.com/in/ysolanky"
                 title="LinkedIn"
                 aria-label="LinkedIn Profile"
@@ -267,29 +431,21 @@ const AppBase = () => {
             </div>
           </FadeIn>
 
-          <FadeIn delay={200}>
+          <FadeIn delay={150}>
             <div className="map-pin">
               <LocationPin />
             </div>
           </FadeIn>
 
-          <FadeIn delay={400}>
+          <FadeIn delay={300}>
             <div className="social-links-container">
               <SocialLinks iconColor={iconColor} />
             </div>
           </FadeIn>
 
-          <FadeIn delay={600}>
+          <FadeIn delay={450}>
             <div className="about-me">
-              Senior Software Engineer at{" "}
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href="https://www.agno.com/"
-                aria-label="Agno company website"
-              >
-                Agno
-              </a>
+              <TextSwitcher />
             </div>
           </FadeIn>
         </section>
