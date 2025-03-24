@@ -29,6 +29,27 @@ const FadeIn = ({ children, delay = 0 }) => {
   );
 };
 
+// For the location pin specifically
+const LocationPin = () => {
+  const iconColor = "#000066";
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div
+      className="map-pin-animated"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <FontAwesomeIcon
+        icon={faLocationDot}
+        color={iconColor}
+        className={isHovered ? "bounce" : ""}
+      />
+      &nbsp; Boston, Massachusetts
+    </div>
+  );
+};
+
 // Typing animation component with disappearing cursor
 const TypeWriter = ({ text, speed = 100, cursorDisappearDelay = 1000 }) => {
   const [displayText, setDisplayText] = useState("");
@@ -124,33 +145,30 @@ const AppBase = () => {
         0%, 100% { opacity: 1; }
         50% { opacity: 0; }
       }
-      .cursor {
-        animation: blink 1s infinite;
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+        40% {transform: translateY(-5px);}
+        60% {transform: translateY(-3px);}
       }
-      .icon-link {
-        display: inline-block;
-        transition: transform 0.3s ease;
+      @keyframes pulse {
+        0% {transform: scale(1);}
+        50% {transform: scale(1.2);}
+        100% {transform: scale(1);}
       }
-      .icon-link:hover {
-        transform: scale(1.1);
+      .bounce {
+        animation: bounce 0.8s ease infinite;
       }
-      .c-social {
-        display: flex;
-        align-items: center;
-        list-style: none;
-        padding: 0;
-        justify-content: center;
+      .pulse {
+        animation: pulse 1.5s ease infinite;
       }
-      .c-social li {
+      .map-pin-animated {
         display: inline-flex;
         align-items: center;
-        margin: 0 5px;
       }
-      .social-links-container {
-        display: flex;
-        justify-content: center;
-        width: 100%;
+      .map-pin-animated:hover svg {
+        animation: bounce 0.8s ease infinite;
       }
+      /* Rest of your styles... */
     `;
     document.head.appendChild(style);
 
@@ -251,8 +269,7 @@ const AppBase = () => {
 
           <FadeIn delay={200}>
             <div className="map-pin">
-              <FontAwesomeIcon icon={faLocationDot} color={iconColor} />
-              &nbsp; Boston, Massachusetts
+              <LocationPin />
             </div>
           </FadeIn>
 
