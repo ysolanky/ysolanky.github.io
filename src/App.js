@@ -23,8 +23,9 @@ const FadeIn = ({ children, delay = 0 }) => {
     <div
       style={{
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0)" : "translateY(10px)",
-        transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
+        transform: isVisible ? "translateY(0)" : "translateY(20px)",
+        transition:
+          "opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)",
       }}
     >
       {children}
@@ -32,30 +33,17 @@ const FadeIn = ({ children, delay = 0 }) => {
   );
 };
 
-const LocationPin = () => {
-  const iconColor = "#000066";
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <div
-      className="map-pin-animated"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <FontAwesomeIcon
-        icon={faLocationDot}
-        color={iconColor}
-        className={isHovered ? "bounce" : ""}
-      />
-      &nbsp; Boston, Massachusetts
-    </div>
-  );
-};
+const LocationPin = () => (
+  <div className="map-pin-animated">
+    <FontAwesomeIcon icon={faLocationDot} />
+    &nbsp; Boston, Massachusetts
+  </div>
+);
 
 const TypeWriter = ({ text, speed = 100, cursorDisappearDelay = 1000 }) => {
   const [displayText, setDisplayText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [showCursor, setShowCursor] = useState(true);
+  const [cursorOpacity, setCursorOpacity] = useState(1);
 
   useEffect(() => {
     if (currentIndex < text.length) {
@@ -65,52 +53,33 @@ const TypeWriter = ({ text, speed = 100, cursorDisappearDelay = 1000 }) => {
       }, speed);
 
       return () => clearTimeout(timer);
-    } else if (currentIndex === text.length && showCursor) {
+    } else if (currentIndex === text.length && cursorOpacity === 1) {
       const cursorTimer = setTimeout(() => {
-        setShowCursor(false);
+        setCursorOpacity(0);
       }, cursorDisappearDelay);
 
       return () => clearTimeout(cursorTimer);
     }
-  }, [currentIndex, text, speed, cursorDisappearDelay, showCursor]);
+  }, [currentIndex, text, speed, cursorDisappearDelay, cursorOpacity]);
 
   return (
     <span style={{ position: "relative" }}>
       {displayText}
-      {showCursor && (
-        <span
-          style={{
-            position: "absolute",
-            animation: "blink 1s infinite",
-          }}
-        >
-          |
-        </span>
-      )}
+      <span
+        className={`typewriter-cursor${cursorOpacity === 0 ? " cursor-hidden" : ""}`}
+      />
     </span>
   );
 };
 
 const socials = [
-  {
-    href: "mailto:yashpratapsolanky@gmail.com",
-    icon: faEnvelope,
-    label: "Email",
-  },
-  {
-    href: "https://twitter.com/yashpsolanky",
-    icon: faXTwitter,
-    label: "Twitter",
-  },
-  {
-    href: "https://www.linkedin.com/in/ysolanky",
-    icon: faLinkedin,
-    label: "LinkedIn",
-  },
+  { href: "mailto:yashpratapsolanky@gmail.com", icon: faEnvelope, label: "Email" },
+  { href: "https://twitter.com/yashpsolanky", icon: faXTwitter, label: "Twitter" },
+  { href: "https://www.linkedin.com/in/ysolanky", icon: faLinkedin, label: "LinkedIn" },
   { href: "https://github.com/ysolanky", icon: faGithub, label: "GitHub" },
 ];
 
-const SocialLinks = React.memo(({ iconColor }) => (
+const SocialLinks = React.memo(() => (
   <ul className="c-social">
     {socials.map(({ href, icon, label }) => (
       <li key={label}>
@@ -122,7 +91,7 @@ const SocialLinks = React.memo(({ iconColor }) => (
           aria-label={`${label} Profile`}
           className="icon-link"
         >
-          <FontAwesomeIcon icon={icon} color={iconColor} />
+          <FontAwesomeIcon icon={icon} />
         </a>
       </li>
     ))}
@@ -130,94 +99,6 @@ const SocialLinks = React.memo(({ iconColor }) => (
 ));
 
 const AppBase = () => {
-  const iconColor = "#000066";
-
-  useEffect(() => {
-    document.title = "Yash";
-
-    const style = document.createElement("style");
-    style.innerHTML = `
-      @keyframes blink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0; }
-      }
-
-      @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-        40% { transform: translateY(-5px); }
-        60% { transform: translateY(-3px); }
-      }
-
-      .bounce {
-        animation: bounce 0.8s ease infinite;
-      }
-
-      .cursor {
-        animation: blink 1s infinite;
-      }
-
-      .map-pin-animated {
-        display: inline-flex;
-        align-items: center;
-      }
-
-      .map-pin-animated:hover svg {
-        animation: bounce 0.8s ease infinite;
-      }
-
-      .icon-link {
-        display: inline-block;
-        transition: transform 0.3s ease;
-      }
-
-      .icon-link:hover {
-        transform: scale(1.1);
-      }
-
-      .c-social {
-        display: flex;
-        align-items: center;
-        list-style: none;
-        padding: 0;
-        justify-content: center;
-      }
-
-      .c-social li {
-        display: inline-flex;
-        align-items: center;
-        margin: 0 5px;
-      }
-
-      .social-links-container {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-      }
-
-      .profile-section {
-        display: flex;
-        flex-direction: column;
-        gap: 0.15rem;
-      }
-
-      .map-pin {
-        margin-top: -0.8rem;
-      }
-
-      .social-links-container {
-        margin-top: -0.8rem;
-      }
-
-      .about-me {
-        margin-top: -0.8rem;
-      }
-    `;
-    document.head.appendChild(style);
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, []);
-
   useEffect(() => {
     if (
       "IntersectionObserver" in window &&
@@ -257,7 +138,7 @@ const AppBase = () => {
 
       <header id="header">
         <div className="header-content">
-          <SocialLinks iconColor={iconColor} />
+          <SocialLinks />
         </div>
       </header>
 
@@ -269,19 +150,19 @@ const AppBase = () => {
             </div>
           </FadeIn>
 
-          <FadeIn delay={150}>
+          <FadeIn delay={250}>
             <div className="map-pin">
               <LocationPin />
             </div>
           </FadeIn>
 
-          <FadeIn delay={300}>
+          <FadeIn delay={500}>
             <div className="social-links-container">
-              <SocialLinks iconColor={iconColor} />
+              <SocialLinks />
             </div>
           </FadeIn>
 
-          <FadeIn delay={450}>
+          <FadeIn delay={750}>
             <div className="about-me">
               Staff Software Engineer at{" "}
               <a
