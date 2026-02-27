@@ -98,7 +98,7 @@ const socials = [
     label: "Email",
   },
   {
-    href: "https://twitter.com/yashpratap7",
+    href: "https://twitter.com/yashpsolanky",
     icon: faXTwitter,
     label: "Twitter",
   },
