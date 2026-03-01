@@ -9,12 +9,21 @@
   --accent: #ff4017;
 }
 
-@import "font.css";
-
-span.center {
-  display: table;
-  margin: 0 auto;
+[data-theme="dark"] {
+  --primary: #e0e0e0;
+  --bg: #0a0a0a;
+  --accent: #ff6a47;
 }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --primary: #e0e0e0;
+    --bg: #0a0a0a;
+    --accent: #ff6a47;
+  }
+}
+
+@import "font.css";
 
 ul {
   display: block;
@@ -30,6 +39,7 @@ body {
   background-color: var(--bg);
   color: var(--primary);
   font-family: "JetBrains Mono", monospace;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 // Profile section
@@ -45,6 +55,8 @@ body {
   font-family: CustomFont;
   margin: 1em;
   text-align: center;
+  cursor: pointer;
+  user-select: none;
 }
 
 .map-pin {
@@ -243,20 +255,72 @@ header {
   }
 }
 
-img {
-  max-width: 100%;
-}
-
-p {
-  font-size: 14px;
-  line-height: 26px;
-  margin: 0;
-}
-
 // Text selection
 ::selection {
   background: var(--primary);
   color: var(--bg);
+}
+
+// Easter egg: Location glitch
+.map-pin-animated.glitch {
+  animation: glitch 0.3s ease;
+}
+
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(2px, -2px); }
+  60% { transform: translate(-1px, -1px); }
+  80% { transform: translate(1px, 1px); }
+}
+
+// Easter egg: Pixel confetti
+.pixel-confetti {
+  position: fixed;
+  top: -10px;
+  width: 8px;
+  height: 8px;
+  z-index: 9999;
+  animation: confetti-fall linear forwards;
+}
+
+@keyframes confetti-fall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+// Easter egg: Secret message
+.secret-message {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  color: var(--bg);
+  padding: 0.75rem 1.5rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.875rem;
+  z-index: 9999;
+  animation: message-pop 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes message-pop {
+  0% { transform: translateX(-50%) translateY(20px); opacity: 0; }
+  100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+
+// Easter egg: DVD screensaver
+.dvd-screensaver {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+  font-family: CustomFont;
+  font-size: clamp(1.5rem, 5vw, 40px);
+  color: var(--accent);
+  white-space: nowrap;
+  pointer-events: none;
+  will-change: transform;
 }
 
 // Reduced motion
