@@ -8,7 +8,6 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
-// --- Easter egg: Console message ---
 console.log(
   "%c\n" +
   "  __   __\n" +
@@ -47,7 +46,6 @@ const FadeIn = ({ children, delay = 0 }) => {
   );
 };
 
-// --- Easter egg: Location pin teleport ---
 const fakeLocations = [
   "Hogwarts",
   "127.0.0.1",
@@ -167,7 +165,6 @@ const SocialLinks = React.memo(() => (
   </ul>
 ));
 
-// --- Easter egg: Konami code ---
 const KONAMI = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
 
 const useKonamiCode = (callback) => {
@@ -189,7 +186,6 @@ const useKonamiCode = (callback) => {
   }, [callback]);
 };
 
-// --- Easter egg: Secret word trigger ---
 const useSecretWord = (word, callback) => {
   const buffer = useRef("");
   useEffect(() => {
@@ -223,7 +219,6 @@ const spawnPixelConfetti = () => {
   }
 };
 
-// --- Easter egg: Triple-click confetti (escalating) ---
 const useTripleClick = (callback, megaCallback) => {
   const clicks = useRef([]);
   const triggerCount = useRef(0);
@@ -254,7 +249,6 @@ const useTripleClick = (callback, megaCallback) => {
   }, [callback, megaCallback]);
 };
 
-// --- Easter egg: Mobile shake ---
 const useShake = (callback, threshold = 25) => {
   const last = useRef({ x: 0, y: 0, z: 0 });
   useEffect(() => {
@@ -270,7 +264,6 @@ const useShake = (callback, threshold = 25) => {
   }, [callback, threshold]);
 };
 
-// --- Easter egg: DVD screensaver ---
 const useScreensaver = (idleTimeout = 60000) => {
   const [active, setActive] = useState(false);
   const timer = useRef(null);
@@ -346,51 +339,11 @@ const AppBase = () => {
     setTimeout(() => setSecretMessage(null), 3000);
   }, []));
 
-  useEffect(() => {
-    if (
-      "IntersectionObserver" in window &&
-      "IntersectionObserverEntry" in window &&
-      "intersectionRatio" in window.IntersectionObserverEntry.prototype
-    ) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].boundingClientRect.y < 0) {
-            document.body.classList.add("header-not-at-top");
-          } else {
-            document.body.classList.remove("header-not-at-top");
-          }
-        },
-        {
-          root: null,
-          threshold: 1.0,
-        }
-      );
-
-      const topAnchor = document.querySelector("#top-of-site-pixel-anchor");
-      if (topAnchor) {
-        observer.observe(topAnchor);
-      }
-
-      return () => {
-        if (topAnchor) {
-          observer.unobserve(topAnchor);
-        }
-      };
-    }
-  }, []);
 
   return (
     <div className="app-container">
       {screensaverActive && <DvdBounce />}
       {secretMessage && <div className="secret-message">{secretMessage}</div>}
-      <div id="top-of-site-pixel-anchor"></div>
-
-      <header id="header">
-        <div className="header-content">
-          <SocialLinks />
-        </div>
-      </header>
-
       <main>
         <section className="profile-section">
           <FadeIn>
