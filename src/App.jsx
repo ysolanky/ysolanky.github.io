@@ -91,10 +91,15 @@ const LocationPin = () => {
   }, []);
 
   return (
-    <div className={`map-pin-animated${isGlitching ? " glitch" : ""}`} onClick={handleClick} style={{ cursor: "pointer" }}>
-      <FontAwesomeIcon icon={faLocationDot} />
-      &nbsp; {location}
-    </div>
+    <button
+      type="button"
+      className={`map-pin-animated${isGlitching ? " glitch" : ""}`}
+      onClick={handleClick}
+      title="Where am I?"
+    >
+      <FontAwesomeIcon icon={faLocationDot} aria-hidden="true" />
+      <span className="map-pin-text">{location}</span>
+    </button>
   );
 };
 
@@ -136,12 +141,22 @@ const toggleTheme = () => {
     (!current && window.matchMedia("(prefers-color-scheme: dark)").matches);
   const next = isDark ? "light" : "dark";
   document.documentElement.setAttribute("data-theme", next);
+  document
+    .querySelector('meta[name="theme-color"]')
+    ?.setAttribute("content", next === "dark" ? "#0a0a0a" : "#ffffff");
   localStorage.setItem("theme", next);
+};
+
+const handleThemeKeyDown = (e) => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    toggleTheme();
+  }
 };
 
 const socials = [
   { href: "mailto:yashpratapsolanky@gmail.com", icon: faEnvelope, label: "Email" },
-  { href: "https://twitter.com/yashpsolanky", icon: faXTwitter, label: "Twitter" },
+  { href: "https://x.com/yashsolanky", icon: faXTwitter, label: "Twitter" },
   { href: "https://www.linkedin.com/in/ysolanky", icon: faLinkedin, label: "LinkedIn" },
   { href: "https://github.com/ysolanky", icon: faGithub, label: "GitHub" },
 ];
@@ -343,11 +358,23 @@ const AppBase = () => {
   return (
     <div className="app-container">
       {screensaverActive && <DvdBounce />}
-      {secretMessage && <div className="secret-message">{secretMessage}</div>}
+      {secretMessage && (
+        <div className="secret-message" role="status" aria-live="polite">
+          {secretMessage}
+        </div>
+      )}
       <main>
         <section className="profile-section">
           <FadeIn>
-            <div className="titlecard" onClick={toggleTheme} role="button" tabIndex={0} aria-label="Toggle theme">
+            <div
+              className="titlecard"
+              onClick={toggleTheme}
+              onKeyDown={handleThemeKeyDown}
+              role="button"
+              tabIndex={0}
+              aria-label="Toggle theme"
+              title="Toggle theme"
+            >
               <TypeWriter text="Yash Pratap Solanky" speed={80} />
             </div>
           </FadeIn>

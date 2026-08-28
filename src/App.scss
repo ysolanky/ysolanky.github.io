@@ -143,10 +143,28 @@ ul.c-social li {
 .map-pin-animated {
   display: inline-flex;
   align-items: center;
+  gap: 0.5em;
+  // Reset native button styling
+  background: none;
+  border: 0;
+  padding: 0.25em;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
 
-  &:hover svg {
+  &:hover svg,
+  &:focus-visible svg {
     animation: bounce 0.8s ease infinite;
   }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+.map-pin-text {
+  white-space: nowrap;
 }
 
 
