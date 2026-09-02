@@ -366,6 +366,18 @@ const AppBase = () => {
       <main>
         <section className="profile-section">
           <FadeIn>
+            <div className="avatar-container">
+              <img
+                className="avatar"
+                src="/profile.jpeg"
+                alt="Yash Pratap Solanky"
+                width="160"
+                height="160"
+              />
+            </div>
+          </FadeIn>
+
+          <FadeIn>
             <div
               className="titlecard"
               onClick={toggleTheme}
@@ -404,6 +416,7 @@ const AppBase = () => {
               </a>
             </div>
           </FadeIn>
+
         </section>
       </main>
     </div>
